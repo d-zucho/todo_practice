@@ -1,22 +1,35 @@
 let todos = [
   {
+    id: uuidv4(),
     text: "testing",
     completed: false
   }
 ];
 
-let filters = {
+const filters = {
   searchText: ""
 };
 
-localStorage.getItem("todos");
+localStorage.setItem("todos", JSON.stringify(todos));
+
+const todosJSON = JSON.stringify(todos);
 
 const renderTodos = function(todos, filters) {
-  let incompleteTodos = todos.filter(function(todo) {
+  const filteredTodos = todos.filter(function(todo) {
+    return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
+  });
+
+  const incompleteTodos = filteredTodos.filter(function(todo) {
     return !todo.completed;
   });
 
-  todos.forEach(todo => {
+  document.querySelector("#summary").innerHTML = "";
+
+  const summary = document.createElement("h3");
+  summary.textContent = `You have ${incompleteTodos.length} todos left`;
+  document.querySelector("#summary").appendChild(summary);
+
+  filteredTodos.forEach(todo => {
     const todoDiv = document.createElement("div");
 
     // create checkbox
@@ -39,9 +52,7 @@ const renderTodos = function(todos, filters) {
   });
 };
 
-renderTodos(todos, filters);
-
-// Add a new Todo
+/**  --  Add a new Todo  --   */
 document.querySelector("#todoForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -57,3 +68,14 @@ document.querySelector("#todoForm").addEventListener("submit", function(e) {
   document.querySelector("#todos").innerHTML = "";
   renderTodos(todos, filters);
 });
+
+/**  --  Assign input to filtertext to filters */
+document.querySelector("#filterText").addEventListener("input", function(e) {
+  filters.searchText = e.target.value;
+  document.querySelector("#todos").innerHTML = "";
+  renderTodos(todos, filters);
+});
+
+if (localStorage.getItem("todos") !== null) {
+  renderTodos(JSON.parse(todosJSON), filters);
+}
