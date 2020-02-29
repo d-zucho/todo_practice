@@ -1,0 +1,36 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Todo</title>
+  </head>
+  <body>
+    <header>
+      <h1>Get Your Sh*t Done</h1>
+      <h3>Zucho Development</h3>
+    </header>
+    <hr />
+    <main>
+      <section id="input">
+        <div id="newTodo">
+          <form id="todoForm">
+            <label for="newTodoText">Enter New Todo: </label>
+            <input type="text" id="newTodoText" />
+            <button type="submit">Enter</button>
+          </form>
+        </div>
+
+        <div id="filterDiv">
+          <label for="filterText">Filter: </label>
+          <input type="text" id="filterText" />
+        </div>
+      </section>
+      <section id="summary"></section>
+
+      <section id="todos"></section>
+    </main>
+
+    <script src="http://wzrd.in/standalone/uuid%2Fv4@latest"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

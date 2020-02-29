@@ -1,0 +1,36 @@
+header {
+  background: beige;
+  text-align: center;
+  height: 100px;
+}
+
+body {
+  max-width: 1080px;
+  margin: auto;
+}
+
+h1,
+h3,
+hr {
+  margin: 0;
+}
+
+h1 {
+  padding: 1rem;
+}
+
+#input {
+  min-width: 770px;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+}
+
+#newTodo {
+  grid-column: 1/3;
+}
+
+#filterDiv {
+  grid-column: 3/5;
+}
