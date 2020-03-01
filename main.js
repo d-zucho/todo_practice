@@ -1,18 +1,22 @@
 let todos = [
-  {
-    id: uuidv4(),
-    text: "testing",
-    completed: false
-  }
+  // {
+  //   id: uuidv4(),
+  //   text: "testing",
+  //   completed: false
+  // }
 ];
 
 const filters = {
   searchText: ""
 };
 
-localStorage.setItem("todos", JSON.stringify(todos));
+/**  --  Check for existing todo data  --   */
 
-const todosJSON = JSON.stringify(todos);
+const todosJSON = localStorage.getItem("todos");
+
+if (todosJSON !== null) {
+  todos = JSON.parse(todosJSON);
+}
 
 const renderTodos = function(todos, filters) {
   const filteredTodos = todos.filter(function(todo) {
@@ -51,6 +55,7 @@ const renderTodos = function(todos, filters) {
     document.querySelector("#todos").appendChild(todoDiv);
   });
 };
+renderTodos(todos, filters);
 
 /**  --  Add a new Todo  --   */
 document.querySelector("#todoForm").addEventListener("submit", function(e) {
@@ -64,6 +69,9 @@ document.querySelector("#todoForm").addEventListener("submit", function(e) {
     });
   }
 
+  // save new data changes to localStorage
+  localStorage.setItem("todos", JSON.stringify(todos));
+
   e.target.elements.newTodoText.value = "";
   document.querySelector("#todos").innerHTML = "";
   renderTodos(todos, filters);
@@ -75,7 +83,3 @@ document.querySelector("#filterText").addEventListener("input", function(e) {
   document.querySelector("#todos").innerHTML = "";
   renderTodos(todos, filters);
 });
-
-if (localStorage.getItem("todos") !== null) {
-  renderTodos(JSON.parse(todosJSON), filters);
-}
